@@ -1,152 +1,145 @@
-// Enhanced Gallery functionality with Project Pages - Create this as js/gallery.js
-const projectsData = {
-    'modern-villa': {
-        title: 'Modern Villa',
-        category: 'Residential • Exterior',
-        description: 'A contemporary architectural masterpiece featuring clean lines, expansive glass facades, and seamless indoor-outdoor living spaces. This three-story villa combines modern aesthetics with sustainable design principles.',
-        client: 'Private Client',
-        location: 'Hyderabad, India',
-        year: '2023',
-        area: '5,500 sq.ft',
-        images: [
-            'images/gallery/modern-villa/image-1.jpg',
-            'images/gallery/modern-villa/image-2.jpg',
-            'images/gallery/modern-villa/image-3.jpg',
-            'images/gallery/modern-villa/image-4.jpg',
-            'images/gallery/modern-villa/image-5.jpg',
-            'images/gallery/modern-villa/image-6.jpg'
-        ]
-    },
-    'corporate-office': {
-        title: 'Corporate Office',
-        category: 'Commercial • Interior',
-        description: 'A dynamic workspace designed to foster creativity and collaboration. Features include open-plan areas, private meeting pods, and biophilic design elements that enhance employee well-being.',
-        client: 'Tech Innovations Ltd.',
-        location: 'Bangalore, India',
-        year: '2022',
-        area: '12,000 sq.ft',
-        images: [
-            'images/gallery/corporate-office/image-1.jpg',
-            'images/gallery/corporate-office/image-2.jpg',
-            'images/gallery/corporate-office/image-3.jpg',
-            'images/gallery/corporate-office/image-4.jpg',
-            'images/gallery/corporate-office/image-5.jpg'
-        ]
-    },
-    'luxury-apartment': {
-        title: 'Luxury Apartment',
-        category: 'Residential • Interior',
-        description: 'An elegant penthouse apartment featuring bespoke interiors, premium materials, and panoramic city views. Every detail has been carefully curated to create a sophisticated living experience.',
-        client: 'Private Client',
-        location: 'Mumbai, India',
-        year: '2023',
-        area: '3,800 sq.ft',
-        images: [
-            'images/gallery/luxury-apartment/image-1.jpg',
-            'images/gallery/luxury-apartment/image-2.jpg',
-            'images/gallery/luxury-apartment/image-3.jpg',
-            'images/gallery/luxury-apartment/image-4.jpg',
-            'images/gallery/luxury-apartment/image-5.jpg',
-            'images/gallery/luxury-apartment/image-6.jpg',
-            'images/gallery/luxury-apartment/image-7.jpg'
-        ]
-    },
-    'shopping-complex': {
-        title: 'Shopping Complex',
-        category: 'Commercial • Exterior',
-        description: 'A modern retail destination that reimagines the shopping experience. Features sustainable design, natural lighting, and flexible spaces that adapt to changing retail needs.',
-        client: 'Retail Developers Group',
-        location: 'Hyderabad, India',
-        year: '2021',
-        area: '45,000 sq.ft',
-        images: [
-            'images/gallery/shopping-complex/image-1.jpg',
-            'images/gallery/shopping-complex/image-2.jpg',
-            'images/gallery/shopping-complex/image-3.jpg',
-            'images/gallery/shopping-complex/image-4.jpg'
-        ]
-    },
-    'contemporary-house': {
-        title: 'Contemporary House',
-        category: 'Residential • Exterior',
-        description: 'A modern family home that balances privacy with openness. Features include a central courtyard, sustainable materials, and energy-efficient systems.',
-        client: 'The Kumar Family',
-        location: 'Chennai, India',
-        year: '2022',
-        area: '4,200 sq.ft',
-        images: [
-            'images/gallery/contemporary-house/image-1.jpg',
-            'images/gallery/contemporary-house/image-2.jpg',
-            'images/gallery/contemporary-house/image-3.jpg',
-            'images/gallery/contemporary-house/image-4.jpg',
-            'images/gallery/contemporary-house/image-5.jpg'
-        ]
-    },
-    'hotel-lobby': {
-        title: 'Hotel Lobby',
-        category: 'Commercial • Interior',
-        description: 'A luxury hotel lobby that creates a memorable first impression. Features include custom lighting, artistic installations, and flexible seating arrangements.',
-        client: 'Luxury Hotels International',
-        location: 'Delhi, India',
-        year: '2023',
-        area: '8,000 sq.ft',
-        images: [
-            'images/gallery/hotel-lobby/image-1.jpg',
-            'images/gallery/hotel-lobby/image-2.jpg',
-            'images/gallery/hotel-lobby/image-3.jpg',
-            'images/gallery/hotel-lobby/image-4.jpg',
-            'images/gallery/hotel-lobby/image-5.jpg',
-            'images/gallery/hotel-lobby/image-6.jpg'
-        ]
-    }
-};
-
+// Enhanced Gallery functionality with API integration
+let projectsData = {};
 let currentProjectId = null;
 let currentImageIndex = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    const loadMoreBtn = document.querySelector('.load-more-btn');
     const galleryGrid = document.querySelector('.gallery-grid');
+    const loadMoreBtn = document.querySelector('.load-more-btn');
     
-    // Filter functionality
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Update active state
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
+    // Load projects from API
+    async function loadProjects() {
+        try {
+            const response = await fetch('/api/public/projects');
+            if (!response.ok) {
+                throw new Error('Failed to load projects');
+            }
             
-            const filterValue = this.getAttribute('data-filter');
+            const projects = await response.json();
             
-            galleryItems.forEach(item => {
-                const itemCategories = item.getAttribute('data-category').split(' ');
-                
-                if (filterValue === 'all' || itemCategories.includes(filterValue)) {
-                    item.classList.remove('hidden');
-                    item.style.display = 'block';
-                } else {
-                    item.classList.add('hidden');
-                    setTimeout(() => {
-                        if (item.classList.contains('hidden')) {
-                            item.style.display = 'none';
-                        }
-                    }, 500);
-                }
-            });
-        });
-    });
+            // Convert array to object for easier access
+            projectsData = projects.reduce((acc, project) => {
+                acc[project.id] = project;
+                return acc;
+            }, {});
+            
+            // Render gallery
+            renderGallery(projects);
+            
+            // Initialize gallery functionality
+            initializeGallery();
+            
+        } catch (error) {
+            console.error('Error loading projects:', error);
+            // Fallback to static content if API fails
+            initializeStaticGallery();
+        }
+    }
     
-    // Load more functionality
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', function() {
-            // This would typically load more projects from a server
-            console.log('Load more projects...');
+    // Render gallery items
+    function renderGallery(projects) {
+        galleryGrid.innerHTML = '';
+        
+        projects.forEach(project => {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            galleryItem.setAttribute('data-category', project.category);
+            galleryItem.setAttribute('data-project-id', project.id);
+            
+            galleryItem.innerHTML = `
+                <div class="gallery-item-inner">
+                    <img src="${project.coverImage}" alt="${project.title}">
+                    <div class="gallery-item-overlay">
+                        <h3>${project.title}</h3>
+                        <p>${formatCategory(project.category)}</p>
+                        <a href="javascript:void(0)" class="gallery-view-more" onclick="openProject('${project.id}')">View Project →</a>
+                    </div>
+                </div>
+            `;
+            
+            galleryGrid.appendChild(galleryItem);
         });
     }
     
-    // Initialize gallery animations
-    initGalleryAnimations();
+    // Format category for display
+    function formatCategory(category) {
+        const categoryMap = {
+            'residential': 'Residential',
+            'commercial': 'Commercial',
+            'interior': 'Interior',
+            'exterior': 'Exterior',
+            'residential interior': 'Residential • Interior',
+            'residential exterior': 'Residential • Exterior',
+            'commercial interior': 'Commercial • Interior',
+            'commercial exterior': 'Commercial • Exterior'
+        };
+        
+        return categoryMap[category] || category;
+    }
+    
+    // Initialize gallery functionality
+    function initializeGallery() {
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active state
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filterValue = this.getAttribute('data-filter');
+                
+                galleryItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    
+                    if (filterValue === 'all' || itemCategory.includes(filterValue)) {
+                        item.classList.remove('hidden');
+                        item.style.display = 'block';
+                    } else {
+                        item.classList.add('hidden');
+                        setTimeout(() => {
+                            if (item.classList.contains('hidden')) {
+                                item.style.display = 'none';
+                            }
+                        }, 500);
+                    }
+                });
+            });
+        });
+        
+        // Load more functionality
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function() {
+                // In a real implementation, this would load more projects from the API
+                console.log('Load more projects...');
+            });
+        }
+        
+        // Intersection Observer for reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all gallery items
+        galleryItems.forEach(item => {
+            observer.observe(item);
+        });
+    }
+    
+    // Load projects on page load
+    loadProjects();
 });
 
 // Open project modal
@@ -156,11 +149,15 @@ function openProject(projectId) {
     
     if (!project) return;
     
-    const modal = document.getElementById('project-modal');
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('project-modal');
+    if (!modal) {
+        modal = createProjectModal();
+    }
     
     // Update modal content
     document.querySelector('.project-title').textContent = project.title;
-    document.querySelector('.project-category').textContent = project.category;
+    document.querySelector('.project-category').textContent = formatCategory(project.category);
     document.querySelector('.project-description p').textContent = project.description;
     
     // Update project details
@@ -178,6 +175,63 @@ function openProject(projectId) {
     
     // Add escape key listener
     document.addEventListener('keydown', handleEscapeKey);
+}
+
+// Create project modal
+function createProjectModal() {
+    const modal = document.createElement('div');
+    modal.className = 'project-modal';
+    modal.id = 'project-modal';
+    
+    modal.innerHTML = `
+        <div class="project-modal-content">
+            <button class="project-close" onclick="closeProject()">&times;</button>
+            <div class="project-header">
+                <h2 class="project-title"></h2>
+                <p class="project-category"></p>
+            </div>
+            
+            <div class="project-description">
+                <p></p>
+            </div>
+            
+            <div class="project-gallery">
+                <div class="main-image">
+                    <img src="" alt="" id="project-main-image">
+                </div>
+                <div class="thumbnail-grid" id="project-thumbnails">
+                    <!-- Thumbnails will be dynamically inserted here -->
+                </div>
+            </div>
+            
+            <div class="project-details">
+                <div class="detail-item">
+                    <h4>Client</h4>
+                    <p id="project-client"></p>
+                </div>
+                <div class="detail-item">
+                    <h4>Location</h4>
+                    <p id="project-location"></p>
+                </div>
+                <div class="detail-item">
+                    <h4>Year</h4>
+                    <p id="project-year"></p>
+                </div>
+                <div class="detail-item">
+                    <h4>Area</h4>
+                    <p id="project-area"></p>
+                </div>
+            </div>
+            
+            <div class="project-navigation">
+                <button class="prev-project" onclick="navigateProject('prev')">← Previous Project</button>
+                <button class="next-project" onclick="navigateProject('next')">Next Project →</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    return modal;
 }
 
 // Close project modal
@@ -252,91 +306,18 @@ function handleEscapeKey(e) {
     }
 }
 
-// Initialize gallery animations
-function initGalleryAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px'
+// Format category for display
+function formatCategory(category) {
+    const categoryMap = {
+        'residential': 'Residential',
+        'commercial': 'Commercial',
+        'interior': 'Interior',
+        'exterior': 'Exterior',
+        'residential interior': 'Residential • Interior',
+        'residential exterior': 'Residential • Exterior',
+        'commercial interior': 'Commercial • Interior',
+        'commercial exterior': 'Commercial • Exterior'
     };
     
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('reveal');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    // Observe all gallery items
-    document.querySelectorAll('.gallery-item').forEach(item => {
-        observer.observe(item);
-    });
+    return categoryMap[category] || category;
 }
-
-// Optional: Add image lightbox for full-screen view
-function initImageLightbox() {
-    const mainImage = document.getElementById('project-main-image');
-    
-    mainImage.addEventListener('click', function() {
-        const lightbox = document.createElement('div');
-        lightbox.className = 'image-lightbox active';
-        lightbox.innerHTML = `
-            <img src="${this.src}" alt="${this.alt}" class="lightbox-image">
-            <div class="lightbox-controls">
-                <button class="lightbox-btn prev-lightbox">←</button>
-                <button class="lightbox-btn close-lightbox">×</button>
-                <button class="lightbox-btn next-lightbox">→</button>
-            </div>
-        `;
-        
-        document.body.appendChild(lightbox);
-        document.body.style.overflow = 'hidden';
-        
-        // Add event listeners
-        lightbox.querySelector('.close-lightbox').addEventListener('click', () => {
-            lightbox.remove();
-            document.body.style.overflow = '';
-        });
-        
-        lightbox.querySelector('.prev-lightbox').addEventListener('click', () => {
-            navigateLightboxImage(-1);
-        });
-        
-        lightbox.querySelector('.next-lightbox').addEventListener('click', () => {
-            navigateLightboxImage(1);
-        });
-        
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                lightbox.remove();
-                document.body.style.overflow = '';
-            }
-        });
-    });
-}
-
-function navigateLightboxImage(direction) {
-    const project = projectsData[currentProjectId];
-    if (!project) return;
-    
-    currentImageIndex = (currentImageIndex + direction + project.images.length) % project.images.length;
-    
-    const lightboxImage = document.querySelector('.lightbox-image');
-    lightboxImage.src = project.images[currentImageIndex];
-    lightboxImage.alt = `Project Image ${currentImageIndex + 1}`;
-}
-
-// Initialize lightbox when modal opens
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('project-modal');
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.target.classList.contains('active')) {
-                initImageLightbox();
-            }
-        });
-    });
-    
-    observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
-});
