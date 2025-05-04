@@ -157,12 +157,3 @@ backup/
 *.pem
 *.key
 *.crt
-
-# Project specific
-admin-credentials.txt
-password-reset.js
-create-admin.js
-test-login.js
-test-api.js
-diagnostic.js
-diagnostic.ps1
