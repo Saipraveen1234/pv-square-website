@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SERGEYMAKHNO</title>
+    <title>ABHISTA DESIGNERS</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -19,27 +19,385 @@
             </div>
         </button>
         <div class="nav-right">
-            <span class="stats">81 OF 33</span>
+            <span class="stats"><span id="current-slide">01</span> OF <span id="total-slides">03</span></span>
         </div>
     </header>
 
     <main>
-        <div class="project-image">
-            <div class="image-frame">
-                <img src="images/hero-image.png" alt="Rose House" />
+        <!-- Slider Container -->
+        <div class="slider-container">
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <div class="project-image">
+                    <div class="image-frame">
+                        <img src="images/hero-image.png" alt="Rose House" />
+                    </div>
+                </div>
+                <div class="project-image-mobile">
+                    <img src="images/hero-image-mob.png" alt="Rose House Mobile" />
+                </div>
+                <div class="project-content">
+                    <h1>Simply Bold.</h1>
+                    <p class="project-description">
+                        A modern three-story villa with clean lines,<br> lush balcony greenery, and elegant lighting.<br>
+                        The design blends nature and architecture <br>seamlessly for a stylish urban home.
+                    </p>
+                    <a href="#" class="view-more">VIEW <span>→</span></a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide">
+                <div class="project-image">
+                    <div class="image-frame">
+                        <img src="images/hero-image-2.png" alt="Rose House" />
+                    </div>
+                </div>
+                <div class="project-image-mobile">
+                    <img src="images/mobile-vertical-hero-2.jpg" alt="Rose House Mobile" />
+                </div>
+                <div class="project-content">
+                    <h1>Timeless Lines.</h1>
+                    <p class="project-description">
+                        This sleek residence features bold contrasts with black marble accents and creative ceiling designs.<br>
+                        The open terrace and vertical garden bring a refreshing and contemporary vibe.
+                    </p>
+                    <a href="#" class="view-more">VIEW <span>→</span></a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide">
+                <div class="project-image">
+                    <div class="image-frame">
+                        <img src="images/hero-image-3.png" alt="Rose House" />
+                    </div>
+                </div>
+                <div class="project-image-mobile">
+                    <img src="images/mobile-vertical-hero-3.jpg" alt="Rose House Mobile" />
+                </div>
+                <div class="project-content">
+                    <h1>Crafted Calm.</h1>
+                    <p class="project-description">
+                        A modern three-story villa with clean lines,<br> lush balcony greenery, and elegant lighting.<br>
+                        The design blends nature and architecture <br>seamlessly for a stylish urban home.
+                    </p>
+                    <a href="#" class="view-more">VIEW <span>→</span></a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- About Us Section -->
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-header">
+                <h2 class="about-title">ABOUT US</h2>
+                <div class="about-subtitle">Crafting Spaces with Soul</div>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="lead-text">
+                        We are architectural storytellers, weaving narratives through space and form. Abhista Designers has been at the forefront of contemporary design, creating environments that inspire and endure.
+                    </p>
+                </div>
+
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-suffix="+">150+</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">9+</div>
+                        <div class="stat-label">Years of Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Years of Excellence</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="studio-values">
+                <h3>Our Values</h3>
+                <div class="values-grid">
+                    <div class="value-item">
+                        <div class="value-icon">01</div>
+                        <h4>Innovation</h4>
+                        <p>Pushing boundaries while respecting tradition</p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-icon">02</div>
+                        <h4>Sustainability</h4>
+                        <p>Creating spaces that honor our environment</p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-icon">03</div>
+                        <h4>Collaboration</h4>
+                        <p>Working together to achieve excellence</p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-icon">04</div>
+                        <h4>Integrity</h4>
+                        <p>Honest design for meaningful experiences</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h3>Let's Create Something Extraordinary</h3>
+                <p>Ready to bring your vision to life? We'd love to hear about your project.</p>
+                <a href="#contact" class="cta-button">Start a Conversation <span>→</span></a>
+            </div>
+        </div>
+    </section>
+
+<!-- Gallery Section - Add this after the About Us section in your index.html -->
+<section class="gallery-section">
+    <div class="gallery-container">
+        <div class="gallery-header">
+            <h2 class="gallery-title">OUR WORK</h2>
+            <div class="gallery-subtitle">Architectural Excellence</div>
+        </div>
+
+        <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="residential">Residential</button>
+            <button class="filter-btn" data-filter="commercial">Commercial</button>
+            <button class="filter-btn" data-filter="interior">Interior</button>
+            <button class="filter-btn" data-filter="exterior">Exterior</button>
+        </div>
+
+        <div class="gallery-grid">
+            <!-- Gallery Item 1 -->
+            <div class="gallery-item" data-category="residential exterior" data-project-id="modern-villa">
+                <div class="gallery-item-inner">
+                    <img src="images/gallery/project-1-cover.jpg" alt="Modern Villa">
+                    <div class="gallery-item-overlay">
+                        <h3>Modern Villa</h3>
+                        <p>Residential • Exterior</p>
+                        <a href="javascript:void(0)" class="gallery-view-more" onclick="openProject('modern-villa')">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Item 2 -->
+            <div class="gallery-item" data-category="commercial interior" data-project-id="corporate-office">
+                <div class="gallery-item-inner">
+                    <img src="images/gallery/project-2-cover.jpg" alt="Corporate Office">
+                    <div class="gallery-item-overlay">
+                        <h3>Corporate Office</h3>
+                        <p>Commercial • Interior</p>
+                        <a href="javascript:void(0)" class="gallery-view-more" onclick="openProject('corporate-office')">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Item 3 -->
+            <div class="gallery-item" data-category="residential interior" data-project-id="luxury-apartment">
+                <div class="gallery-item-inner">
+                    <img src="images/gallery/project-3-cover.jpg" alt="Luxury Apartment">
+                    <div class="gallery-item-overlay">
+                        <h3>Luxury Apartment</h3>
+                        <p>Residential • Interior</p>
+                        <a href="javascript:void(0)" class="gallery-view-more" onclick="openProject('luxury-apartment')">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Item 4 -->
+            <div class="gallery-item" data-category="commercial exterior" data-project-id="shopping-complex">
+                <div class="gallery-item-inner">
+                    <img src="images/gallery/project-4-cover.jpg" alt="Shopping Complex">
+                    <div class="gallery-item-overlay">
+                        <h3>Shopping Complex</h3>
+                        <p>Commercial • Exterior</p>
+                        <a href="javascript:void(0)" class="gallery-view-more" onclick="openProject('shopping-complex')">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Item 5 -->
+            <div class="gallery-item" data-category="residential exterior" data-project-id="contemporary-house">
+                <div class="gallery-item-inner">
+                    <img src="images/gallery/project-5-cover.jpg" alt="Contemporary House">
+                    <div class="gallery-item-overlay">
+                        <h3>Contemporary House</h3>
+                        <p>Residential • Exterior</p>
+                        <a href="javascript:void(0)" class="gallery-view-more" onclick="openProject('contemporary-house')">View Project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Item 6 -->
+            <div class="gallery-item" data-category="commercial interior" data-project-id="hotel-lobby">
+                <div class="gallery-item-inner">
+                    <img src="images/gallery/project-6-cover.jpg" alt="Hotel Lobby">
+                    <div class="gallery-item-overlay">
+                        <h3>Hotel Lobby</h3>
+                        <p>Commercial • Interior</p>
+                        <a href="javascript:void(0)" class="gallery-view-more" onclick="openProject('hotel-lobby')">View Project →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-load-more">
+            <button class="load-more-btn">Load More Projects</button>
+        </div>
+    </div>
+</section>
+
+<!-- Project Modal - Add this after the gallery section -->
+<div class="project-modal" id="project-modal">
+    <div class="project-modal-content">
+        <button class="project-close" onclick="closeProject()">&times;</button>
+        <div class="project-header">
+            <h2 class="project-title"></h2>
+            <p class="project-category"></p>
+        </div>
+        
+        <div class="project-description">
+            <p></p>
+        </div>
+        
+        <div class="project-gallery">
+            <div class="main-image">
+                <img src="" alt="" id="project-main-image">
+            </div>
+            <div class="thumbnail-grid" id="project-thumbnails">
+                <!-- Thumbnails will be dynamically inserted here -->
             </div>
         </div>
         
-        <div class="project-content">
-            <h1>ABHISTA DESIGNERS</h1>
-            <p class="project-description">
-                Named after its stunning copper exterior.<br>
-                This 160 sqm private residence is nestled<br>
-                deep amongst the hills in Ukraine.
-            </p>
-            <a href="#" class="view-more">VIEW <span>→</span></a>
+        <div class="project-details">
+            <div class="detail-item">
+                <h4>Client</h4>
+                <p id="project-client"></p>
+            </div>
+            <div class="detail-item">
+                <h4>Location</h4>
+                <p id="project-location"></p>
+            </div>
+            <div class="detail-item">
+                <h4>Year</h4>
+                <p id="project-year"></p>
+            </div>
+            <div class="detail-item">
+                <h4>Area</h4>
+                <p id="project-area"></p>
+            </div>
         </div>
-    </main>
+        
+        <div class="project-navigation">
+            <button class="prev-project" onclick="navigateProject('prev')">← Previous Project</button>
+            <button class="next-project" onclick="navigateProject('next')">Next Project →</button>
+        </div>
+    </div>
+</div>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <div class="contact-header">
+                <!-- <h2 class="contact-title">CONTACT US</h2> -->
+                <div class="contact-subtitle">Let's Talk About Your Dream Home.</div>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-form-wrapper">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" required>
+                                <label for="name">Your Name</label>
+                                <span class="form-line"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" required>
+                                <label for="email">Email Address</label>
+                                <span class="form-line"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="tel" id="phone" name="phone">
+                                <label for="phone">Phone Number</label>
+                                <span class="form-line"></span>
+                            </div>
+                            <div class="form-group">
+                                <select id="project-type" name="project-type" required>
+                                    <option value=""></option>
+                                    <option value="residential">Residential</option>
+                                    <option value="commercial">Commercial</option>
+                                    <option value="interior">Interior Design</option>
+                                    <option value="consultation">Consultation</option>
+                                </select>
+                                <label for="project-type">Project Type</label>
+                                <span class="form-line"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <input type="text" id="subject" name="subject" required>
+                            <label for="subject">Subject</label>
+                            <span class="form-line"></span>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message">Your Message</label>
+                            <span class="form-line"></span>
+                        </div>
+
+                        <div class="form-submit">
+                            <button type="submit" class="submit-btn">
+                                <span class="btn-text">Send Message</span>
+                                <span class="btn-icon">→</span>
+                            </button>
+                            <div class="form-status">
+                                <div class="form-sending">Sending...</div>
+                                <div class="form-success">Message sent successfully!</div>
+                                <div class="form-error">Something went wrong. Please try again.</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <div class="info-item">
+                        <h3>Email Us</h3>
+                        <p><a href="mailto:abhistadesigner@gmail.com">abhistadesigner@gmail.com</a></p>
+                    </div>
+                    
+                    <div class="info-item">
+                        <h3>Call Us</h3>
+                        <p><a href="tel:+919399971717">+91 93999 71717</a></p>
+                    </div>
+                    
+                    <div class="info-item">
+                        <h3>Working Hours</h3>
+                        <p>Monday - Sat: 9:00 AM - 6:00 PM<br>Sunday: Closed</p>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Behance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="info-section">
         <div class="info-grid">
@@ -63,8 +421,8 @@
 
     <footer>
         <div class="footer-nav">
-            <a href="#">← PREV</a>
-            <a href="#">NEXT →</a>
+            <a href="#" id="prev-slide">← PREV</a>
+            <a href="#" id="next-slide">NEXT →</a>
         </div>
         <div class="footer-links">
             <a href="#">— ARCHITECTURE</a>
@@ -77,5 +435,12 @@
             <span class="dot"></span>
         </div>
     </footer>
+
+    <script src="js/slider.js"></script>
+    <script src="js/counter.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/contact.js"></script>
+    <script src="js/smooth-scroll.js"></script>
 </body>
 </html>
