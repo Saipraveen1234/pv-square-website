@@ -1,0 +1,13 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "serve -s public",
+    "build": "echo 'No build step required'",
+    "start": "serve -s public"
+  },
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+}

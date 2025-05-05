@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Auto-play functionality
         let autoPlayInterval;
-        const autoPlayDelay = 5000; // 5 seconds
+        const autoPlayDelay = 3000; // 5 seconds
         
         function startAutoPlay() {
             autoPlayInterval = setInterval(nextSlide, autoPlayDelay);

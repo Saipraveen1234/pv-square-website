@@ -1,7 +1,7 @@
-// Admin Panel JavaScript - js/admin.js
+// admin/js/admin.js
 
 // Configuration
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = '/api'; // Update this with your actual API URL
 let authToken = localStorage.getItem('authToken');
 
 // DOM Elements
@@ -130,8 +130,8 @@ function displaySlides(slides) {
                 <p>${slide.description.substring(0, 100)}...</p>
             </div>
             <div class="slide-actions">
-                <button class="btn-edit" onclick="editSlide('${slide.id}')">Edit</button>
-                <button class="btn-delete" onclick="deleteSlide('${slide.id}')">Delete</button>
+                <button class="btn-edit" onclick="editSlide('${slide._id}')">Edit</button>
+                <button class="btn-delete" onclick="deleteSlide('${slide._id}')">Delete</button>
             </div>
         `;
         slideList.appendChild(slideElement);
@@ -153,7 +153,7 @@ function showSlideForm(slide = null) {
     form.style.display = 'block';
 
     if (slide) {
-        document.getElementById('slide-id').value = slide.id;
+        document.getElementById('slide-id').value = slide._id;
         document.getElementById('slide-title').value = slide.title;
         document.getElementById('slide-description').value = slide.description;
         
@@ -219,11 +219,11 @@ document.getElementById('slide-form').addEventListener('submit', async (e) => {
             loadSlides();
         } else {
             const error = await response.json();
-            showToast(error.message || 'Failed to save slide', 'error');
+            showToast(error.message || 'Failed to delete slide', 'error');
         }
     } catch (error) {
-        console.error('Error saving slide:', error);
-        showToast('An error occurred while saving the slide', 'error');
+        console.error('Error deleting slide:', error);
+        showToast('An error occurred while deleting the slide', 'error');
     }
 });
 
