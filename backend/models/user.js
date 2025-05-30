@@ -1,5 +1,4 @@
-
-  const User = require('./models/User');
+// This file should only define and export the User model, not require itself.
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({

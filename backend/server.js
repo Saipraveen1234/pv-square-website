@@ -14,7 +14,7 @@ require('dotenv').config();
 const connectDB = require('./config/database');
 
 // Import models
-const User = require('./models/User');
+const User = require('./models/user');
 const Slide = require('./models/Slide');
 const Project = require('./models/Project');
 const Settings = require('./models/Settings');
