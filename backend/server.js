@@ -1,6 +1,7 @@
 // backend/server.js
 const express = require('express');
 const cors = require('cors');
+
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs').promises;
@@ -13,7 +14,7 @@ require('dotenv').config();
 const connectDB = require('./config/database');
 
 // Import models
-const User = require('./models/user');
+const User = require('./models/User');
 const Slide = require('./models/Slide');
 const Project = require('./models/Project');
 const Settings = require('./models/Settings');
