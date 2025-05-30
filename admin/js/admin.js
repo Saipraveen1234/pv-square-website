@@ -97,6 +97,18 @@ logoutBtn.addEventListener('click', () => {
     showLogin();
 });
 
+// Utility function to handle API responses for authentication errors
+async function handleApiResponse(response) {
+    if (response.status === 401 || response.status === 403) {
+        localStorage.removeItem('authToken');
+        authToken = null;
+        showLogin();
+        showToast('Session expired. Please log in again.', 'error');
+        throw new Error('Unauthorized');
+    }
+    return response;
+}
+
 // Load slides
 async function loadSlides() {
     try {
@@ -105,7 +117,7 @@ async function loadSlides() {
                 'Authorization': `Bearer ${authToken}`
             }
         });
-
+        await handleApiResponse(response);
         if (response.ok) {
             const slides = await response.json();
             displaySlides(slides);
@@ -281,7 +293,7 @@ async function loadProjects() {
                 'Authorization': `Bearer ${authToken}`
             }
         });
-
+        await handleApiResponse(response);
         if (response.ok) {
             const projects = await response.json();
             displayProjects(projects);
@@ -306,8 +318,8 @@ function displayProjects(projects) {
                 <p>${project.category} • ${project.location}</p>
             </div>
             <div class="project-actions">
-                <button class="btn-edit" onclick="editProject('${project.id}')">Edit</button>
-                <button class="btn-delete" onclick="deleteProject('${project.id}')">Delete</button>
+                <button class="btn-edit" onclick="editProject('${project._id}')">Edit</button>
+                <button class="btn-delete" onclick="deleteProject('${project._id}')">Delete</button>
             </div>
         `;
         projectList.appendChild(projectElement);
@@ -766,3 +778,19 @@ window.editProject = editProject;
 window.deleteProject = deleteProject;
 window.removeProjectImage = removeProjectImage;
 window.removeNewImage = removeNewImage;
+
+// Remove existing project image from the preview and update the images array
+function removeProjectImage(index) {
+    // Get the current images from the preview
+    const imagesPreview = document.getElementById('images-preview');
+    // Remove the image from the preview
+    const imageItems = imagesPreview.getElementsByClassName('image-item');
+    if (imageItems[index]) {
+        imageItems[index].remove();
+    }
+    // Update the images array in the form's dataset (if managed)
+    // If you store images in a variable, update it here as well
+    if (window.currentProjectImages) {
+        window.currentProjectImages.splice(index, 1);
+    }
+}
