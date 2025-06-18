@@ -29,8 +29,8 @@ connectDB();
 app.use(cors({
   origin: [
     'https://www.pvsquare.in',
+    'https://pv-square-website-kaag.vercel.app',
     'https://pv-square-website.vercel.app',
-    'https://pv-square-website-git-master-yourssaipraveen-gmailcoms-projects.vercel.app'
   ],
   credentials: true
 }));
