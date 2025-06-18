@@ -26,7 +26,13 @@ const PORT = process.env.PORT || 3001;
 connectDB();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://pv-square-website.vercel.app',
+    'https://pv-square-website-git-master-yourssaipraveen-gmailcoms-projects.vercel.app'
+  ],
+  credentials: true
+}));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
