@@ -1,7 +1,7 @@
 // admin/js/admin.js
 
 // Configuration
-const API_BASE_URL = '/api'; // Update this with your actual API URL
+const API_BASE_URL = 'https://pv-square-website.onrender.com/api';
 let authToken = localStorage.getItem('authToken');
 
 // DOM Elements
