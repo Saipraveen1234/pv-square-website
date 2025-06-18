@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - ABHISTA DESIGNERS</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Login Form -->
+    <div class="login-container" id="login-container">
+        <div class="login-box">
+            <h1>Admin Login</h1>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+                <div class="error-message" id="login-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="admin-dashboard" style="display: none;">
+        <header class="admin-header">
+            <div class="logo">ABHISTA DESIGNERS - Admin Panel</div>
+            <nav>
+                <button class="nav-btn active" data-section="homepage">Homepage Slider</button>
+                <button class="nav-btn" data-section="gallery">Gallery Projects</button>
+                <button class="nav-btn" data-section="settings">Settings</button>
+                <button class="btn-logout" id="logout-btn">Logout</button>
+            </nav>
+        </header>
+
+        <main class="admin-content">
+            <!-- Homepage Slider Section -->
+            <section id="homepage-section" class="admin-section active">
+                <h2>Homepage Slider Management</h2>
+                
+                <div class="slides-container">
+                    <div class="slide-list" id="slide-list">
+                        <!-- Slides will be loaded dynamically -->
+                    </div>
+                    
+                    <button class="btn-primary" id="add-slide-btn">Add New Slide</button>
+                </div>
+
+                <!-- Slide Edit Form -->
+                <div class="edit-form" id="slide-edit-form" style="display: none;">
+                    <h3 id="slide-form-title">Edit Slide</h3>
+                    <form id="slide-form">
+                        <input type="hidden" id="slide-id" name="id">
+                        
+                        <div class="form-group">
+                            <label for="slide-title">Title</label>
+                            <input type="text" id="slide-title" name="title" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="slide-description">Description</label>
+                            <textarea id="slide-description" name="description" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="slide-desktop-image">Desktop Image</label>
+                                <input type="file" id="slide-desktop-image" name="desktopImage" accept="image/*">
+                                <img id="desktop-preview" class="image-preview" style="display: none;">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="slide-mobile-image">Mobile Image</label>
+                                <input type="file" id="slide-mobile-image" name="mobileImage" accept="image/*">
+                                <img id="mobile-preview" class="image-preview" style="display: none;">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Save Slide</button>
+                            <button type="button" class="btn-secondary" id="cancel-slide-btn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Gallery Projects Section -->
+            <section id="gallery-section" class="admin-section">
+                <h2>Gallery Projects Management</h2>
+                
+                <div class="projects-container">
+                    <div class="project-list" id="project-list">
+                        <!-- Projects will be loaded dynamically -->
+                    </div>
+                    
+                    <button class="btn-primary" id="add-project-btn">Add New Project</button>
+                </div>
+
+                <!-- Project Edit Form -->
+                <div class="edit-form" id="project-edit-form" style="display: none;">
+                    <h3 id="project-form-title">Edit Project</h3>
+                    <form id="project-form">
+                        <input type="hidden" id="project-id" name="id">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="project-title">Title</label>
+                                <input type="text" id="project-title" name="title" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="project-category">Category</label>
+                                <select id="project-category" name="category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="residential">Residential</option>
+                                    <option value="commercial">Commercial</option>
+                                    <option value="interior">Interior</option>
+                                    <option value="exterior">Exterior</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="project-description">Description</label>
+                            <textarea id="project-description" name="description" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="project-client">Client</label>
+                                <input type="text" id="project-client" name="client" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="project-location">Location</label>
+                                <input type="text" id="project-location" name="location" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="project-year">Year</label>
+                                <input type="text" id="project-year" name="year" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="project-area">Area</label>
+                                <input type="text" id="project-area" name="area" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="project-cover">Cover Image</label>
+                            <input type="file" id="project-cover" name="coverImage" accept="image/*">
+                            <img id="cover-preview" class="image-preview" style="display: none;">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Project Images</label>
+                            <input type="file" id="project-images" name="projectImages" multiple accept="image/*">
+                            <div id="images-preview" class="images-grid"></div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Save Project</button>
+                            <button type="button" class="btn-secondary" id="cancel-project-btn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings-section" class="admin-section">
+                <h2>Settings</h2>
+                
+                <div class="settings-container">
+                    <div class="settings-group">
+                        <h3>Change Password</h3>
+                        <form id="password-form">
+                            <div class="form-group">
+                                <label for="current-password">Current Password</label>
+                                <input type="password" id="current-password" name="currentPassword" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="new-password">New Password</label>
+                                <input type="password" id="new-password" name="newPassword" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm New Password</label>
+                                <input type="password" id="confirm-password" name="confirmPassword" required>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">Update Password</button>
+                        </form>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3>Contact Information</h3>
+                        <form id="contact-info-form">
+                            <div class="form-group">
+                                <label for="contact-email">Email</label>
+                                <input type="email" id="contact-email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-phone">Phone</label>
+                                <input type="tel" id="contact-phone" name="phone" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-address">Address</label>
+                                <textarea id="contact-address" name="address" rows="3" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">Update Contact Info</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <span class="toast-message"></span>
+            <button class="toast-close">&times;</button>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
